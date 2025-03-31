@@ -1,0 +1,666 @@
+<antArtifact identifier="bike-service-website" type="text/html" title="Strona serwisu rowerowego "RowerPro"">
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RowerPro - Profesjonalny Serwis Rowerowy</title>
+    <style>
+        /* Resetowanie stylów */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Zmienne kolorów */
+        :root {
+            --primary: #2e86de;
+            --secondary: #ff6b6b;
+            --dark: #333333;
+            --light: #f5f6fa;
+            --accent: #10ac84;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* Nagłówek */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        /* Banner */
+        .banner {
+            height: 450px;
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('/api/placeholder/1200/450');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .banner-content {
+            width: 100%;
+        }
+        
+        .banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .banner p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Sekcje */
+        section {
+            padding: 3rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        /* Usługi */
+        .services {
+            background-color: white;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-img {
+            height: 200px;
+            background-color: var(--primary);
+            background-image: url('/api/placeholder/400/200');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .service-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .price {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        
+        /* Cennik */
+        .pricing {
+            background-color: #f9f9f9;
+        }
+        
+        .price-list {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .price-item:last-child {
+            border-bottom: none;
+        }
+        
+        .price-item:nth-child(odd) {
+            background-color: #f5f5f5;
+        }
+        
+        .price-name {
+            font-weight: 500;
+        }
+        
+        .price-value {
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        /* O nas */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .about-img {
+            height: 400px;
+            background-color: var(--primary);
+            background-image: url('/api/placeholder/500/400');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .about-text h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Kontakt */
+        .contact {
+            background-color: #f9f9f9;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-info i {
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+        
+        .contact-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        button.btn {
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        /* Stopka */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .social-links {
+            display: flex;
+            margin: 1rem 0;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #444;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 1rem;
+        }
+        
+        /* Responsywność */
+        @media screen and (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.75rem;
+            }
+            
+            .banner h1 {
+                font-size: 2rem;
+            }
+            
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-img {
+                height: 300px;
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Nagłówek -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span>Rower</span>Pro
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#services">Usługi</a></li>
+                        <li><a href="#pricing">Cennik</a></li>
+                        <li><a href="#about">O nas</a></li>
+                        <li><a href="#contact">Kontakt</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Banner -->
+    <section class="banner">
+        <div class="container">
+            <div class="banner-content">
+                <h1>Profesjonalny serwis rowerowy</h1>
+                <p>Oddaj swój rower w ręce specjalistów! Zajmujemy się kompleksową naprawą, konserwacją i serwisem rowerów wszystkich typów.</p>
+                <a href="#contact" class="btn">Umów wizytę</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Usługi -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nasze usługi</h2>
+                <p>Oferujemy kompleksowe usługi dla Twojego roweru</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('/api/placeholder/400/200')"></div>
+                    <div class="service-content">
+                        <h3>Przegląd podstawowy</h3>
+                        <p>Sprawdzenie stanu technicznego, regulacja hamulców i przerzutek, kontrola ciśnienia w oponach.</p>
+                        <span class="price">Od 99 zł</span>
+                        <a href="#contact" class="btn">Umów</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('/api/placeholder/400/200')"></div>
+                    <div class="service-content">
+                        <h3>Przegląd rozszerzony</h3>
+                        <p>Kompleksowe sprawdzenie i regulacja wszystkich podzespołów roweru, czyszczenie i smarowanie napędu.</p>
+                        <span class="price">Od 199 zł</span>
+                        <a href="#contact" class="btn">Umów</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-img" style="background-image: url('/api/placeholder/400/200')"></div>
+                    <div class="service-content">
+                        <h3>Serwis amortyzatorów</h3>
+                        <p>Profesjonalny serwis widelców i amortyzatorów wszystkich marek.</p>
+                        <span class="price">Od 249 zł</span>
+                        <a href="#contact" class="btn">Umów</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Cennik -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Cennik</h2>
+                <p>Przejrzyste ceny za profesjonalne usługi</p>
+            </div>
+            
+            <div class="price-list">
+                <div class="price-item">
+                    <div class="price-name">Wymiana dętki / opony</div>
+                    <div class="price-value">30-50 zł</div>
+                </div>
+                <div class="price-item">
+                    <div class="price-name">Regulacja przerzutki</div>
+                    <div class="price-value">50 zł</div>
+                </div>
+                <div class="price-item">
+                    <div class="price-name">Regulacja hamulców</div>
+                    <div class="price-value">50-80 zł</div>
+                </div>
+                <div class="price-item">
+                    <div class="price-name">Centrowanie koła</div>
+                    <div class="price-value">60-100 zł</div>
+                </div>
+                <div class="price-item">
+                    <div class="price-name">Wymiana łańcucha</div>
+                    <div class="price-value">40 zł + części</div>
+                </div>
+                <div class="price-item">
+                    <div class="price-name">Serwis piasty</div>
+                    <div class="price-value">80-150 zł</div>
+                </div>
+                <div class="price-item">
+                    <div class="price-name">Serwis amortyzatora</div>
+                    <div class="price-value">250-350 zł</div>
+                </div>
+                <div class="price-item">
+                    <div class="price-name">Złożenie roweru z kartonu</div>
+                    <div class="price-value">150-250 zł</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- O nas -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>O nas</h2>
+                <p>Poznaj naszą pasję do rowerów</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Doświadczenie i profesjonalizm</h3>
+                    <p>Nasz serwis rowerowy działa od 2010 roku. Przez ten czas zdobyliśmy zaufanie setek klientów, którzy regularnie powierzają nam swoje rowery.</p>
+                    <p>Zespół RowerPro składa się z doświadczonych mechaników z pasją do kolarstwa. Każdy z nas jest aktywnym rowerzystą, dzięki czemu doskonale rozumiemy potrzeby naszych klientów.</p>
+                    <p>Używamy profesjonalnych narzędzi i najwyższej jakości części zamiennych. Stawiamy na jakość, precyzję i rzetelność.</p>
+                    <p>Regularnie podnosimy swoje kwalifikacje, uczestnicząc w szkoleniach i warsztatach organizowanych przez czołowych producentów sprzętu rowerowego.</p>
+                </div>
+                <div class="about-img"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Kontakt -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kontakt</h2>
+                <p>Skontaktuj się z nami i umów swoją wizytę</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Dane kontaktowe</h3>
+                    <p><i>📍</i> ul. Rowerowa 15, 00-000 Warszawa</p>
+                    <p><i>📱</i> +48 123 456 789</p>
+                    <p><i>✉️</i> kontakt@rowerpro.pl</p>
+                    <h3>Godziny otwarcia</h3>
+                    <p>Poniedziałek - Piątek: 10:00 - 18:00</p>
+                    <p>Sobota: 10:00 - 14:00</p>
+                    <p>Niedziela: Zamknięte</p>
+                    <h3>Jak dojechać</h3>
+                    <p>Znajdujemy się 5 minut spacerem od stacji metra Centrum. W pobliżu znajduje się również parking dla samochodów.</p>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="appointment-form">
+                        <div class="form-group">
+                            <label for="name">Imię i nazwisko</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon</label>
+                            <input type="tel" class="form-control" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Wybierz usługę</label>
+                            <select class="form-control" id="service">
+                                <option value="basic">Przegląd podstawowy</option>
+                                <option value="extended">Przegląd rozszerzony</option>
+                                <option value="suspension">Serwis amortyzatorów</option>
+                                <option value="wheels">Naprawa kół</option>
+                                <option value="other">Inna usługa</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Wiadomość</label>
+                            <textarea class="form-control" id="message"></textarea>
+                        </div>
+                        <button type="submit" class="btn">Wyślij zapytanie</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stopka -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <span>Rower</span>Pro
+                </div>
+                <div class="social-links">
+                    <a href="#"><span>f</span></a>
+                    <a href="#"><span>in</span></a>
+                    <a href="#"><span>ig</span></a>
+                </div>
+                <div class="copyright">
+                    &copy; 2025 RowerPro. Wszelkie prawa zastrzeżone.
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Płynne przewijanie do sekcji po kliknięciu w link w nawigacji
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Obsługa formularza kontaktowego
+        const form = document.getElementById('appointment-form');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+            const message = document.getElementById('message').value;
+            
+            // W rzeczywistej implementacji wysłałbyś te dane na serwer
+            // Na potrzeby demo wyświetlamy alert z potwierdzeniem
+            alert(`Dziękujemy ${name}! Twoje zapytanie zostało wysłane. Skontaktujemy się z Tobą wkrótce.`);
+            
+            form.reset();
+        });
+    </script>
+</body>
+</html>
+</antArtifact>
