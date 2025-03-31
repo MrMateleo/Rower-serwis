@@ -1,4 +1,4 @@
-<antArtifact identifier="bike-service-website" type="text/html" title="Strona serwisu rowerowego "RowerPro"">
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -663,4 +663,3 @@
     </script>
 </body>
 </html>
-</antArtifact>
